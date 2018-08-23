@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DistributedSystems.Models;
+using OrderRegistration.Web.Models;
 
 namespace DistributedSystems.Controllers
 {
@@ -17,9 +18,16 @@ namespace DistributedSystems.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "Your order has been received";
 
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SaveOrder(OrderViewModel order)
+        {
+            return RedirectToAction("About");
         }
 
         public IActionResult Contact()

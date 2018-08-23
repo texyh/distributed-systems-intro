@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributedSystems.Web", "DistributedSystems\DistributedSystems.Web.csproj", "{AC7CE9A6-263E-40B0-B27E-A2BD4E690DE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderRegistration.Web", "DistributedSystems\OrderRegistration.Web.csproj", "{AC7CE9A6-263E-40B0-B27E-A2BD4E690DE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService", "NotificationService\NotificationService.csproj", "{FCA0FC14-C25B-4AF7-ABD3-35B6902D62CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderNotification.Service", "NotificationService\OrderNotification.Service.csproj", "{FCA0FC14-C25B-4AF7-ABD3-35B6902D62CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderService", "OrderService\OrderService.csproj", "{BF0DEB57-0F4B-483B-B875-4ABBA0887FF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderShipment.Service", "ShipmentService\OrderShipment.Service.csproj", "{B97D5CCE-ECDB-4048-8FBA-274AA6B3E2B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{2ABED7F6-1C38-4EBE-B65F-AF6FCA565CB8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderRegistration.Service", "OrderRegistration.Service\OrderRegistration.Service.csproj", "{A11F591D-6A04-44DD-9E5A-2E2891F956D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipmentService", "ShipmentService\ShipmentService.csproj", "{B97D5CCE-ECDB-4048-8FBA-274AA6B3E2B6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderService.common", "OrderService.common\OrderService.common.csproj", "{32CCF40A-0E32-4AE7-AE97-A8DFFCB9B256}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,18 +27,18 @@ Global
 		{FCA0FC14-C25B-4AF7-ABD3-35B6902D62CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCA0FC14-C25B-4AF7-ABD3-35B6902D62CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCA0FC14-C25B-4AF7-ABD3-35B6902D62CE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BF0DEB57-0F4B-483B-B875-4ABBA0887FF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF0DEB57-0F4B-483B-B875-4ABBA0887FF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF0DEB57-0F4B-483B-B875-4ABBA0887FF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF0DEB57-0F4B-483B-B875-4ABBA0887FF7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2ABED7F6-1C38-4EBE-B65F-AF6FCA565CB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2ABED7F6-1C38-4EBE-B65F-AF6FCA565CB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2ABED7F6-1C38-4EBE-B65F-AF6FCA565CB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2ABED7F6-1C38-4EBE-B65F-AF6FCA565CB8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B97D5CCE-ECDB-4048-8FBA-274AA6B3E2B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B97D5CCE-ECDB-4048-8FBA-274AA6B3E2B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B97D5CCE-ECDB-4048-8FBA-274AA6B3E2B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B97D5CCE-ECDB-4048-8FBA-274AA6B3E2B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A11F591D-6A04-44DD-9E5A-2E2891F956D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A11F591D-6A04-44DD-9E5A-2E2891F956D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A11F591D-6A04-44DD-9E5A-2E2891F956D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A11F591D-6A04-44DD-9E5A-2E2891F956D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32CCF40A-0E32-4AE7-AE97-A8DFFCB9B256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32CCF40A-0E32-4AE7-AE97-A8DFFCB9B256}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32CCF40A-0E32-4AE7-AE97-A8DFFCB9B256}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32CCF40A-0E32-4AE7-AE97-A8DFFCB9B256}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
