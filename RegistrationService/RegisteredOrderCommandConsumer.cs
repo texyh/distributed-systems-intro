@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using DistribuedSystem.Common;
 using DistribuedSystem.Common.Interfaces;
+using MassTransit;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Framing.Impl;
@@ -10,45 +12,21 @@ using RegistrationService.Messages;
 
 namespace RegistrationService
 {
-    class RegisteredOrderCommandConsumer : DefaultBasicConsumer
+    class RegisteredOrderCommandConsumer : IConsumer<IRegisterOrderCommand>
     {
-        private readonly RabbitMqManager rabbitMqManager;
-
-        public RegisteredOrderCommandConsumer(
-            RabbitMqManager rabbitMqManager)
+        public async Task Consume(ConsumeContext<IRegisterOrderCommand> context)
         {
-            this.rabbitMqManager = rabbitMqManager;
-        }
+            var command = context.Message;
 
-        public override void HandleBasicDeliver(
-            string consumerTag, ulong deliveryTag,
-            bool redelivered, string exchange, string routingKey,
-            IBasicProperties properties, byte[] body)
-        {
-            if (properties.ContentType != RabbitMqConstants.JsonMimeType)
-                throw new ArgumentException(
-                    $"Can't handle content type {properties.ContentType}");
-
-            var message = Encoding.UTF8.GetString(body);
-            var commandObj =
-                JsonConvert.DeserializeObject<RegisterOrderCommand>(
-                    message);
-            Consume(commandObj, properties.CorrelationId);
-            rabbitMqManager.SendAck(deliveryTag);
-        }
-
-        private void Consume(IRegisterOrderCommand command, string corrId)
-        {
             //Store order registration and get Id
-            var id = corrId;
+            var id = Guid.NewGuid().ToString();
 
-            Console.WriteLine($"Order with id {id} registered");
-            Console.WriteLine("Publishing order registered event");
+            await Console.Out.WriteLineAsync($"Order with id {id} registered");
 
             //notify subscribers that a order is registered
             var orderRegisteredEvent = new OrderRegisteredEvent(command, id);
             //publish event
-            rabbitMqManager.SendOrderRegisteredEvent(orderRegisteredEvent);
+            await context.Publish<IOrderRegisteredEvent>(orderRegisteredEvent);
         }
     }
 }

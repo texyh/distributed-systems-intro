@@ -1,4 +1,6 @@
 ﻿using System;
+using DistribuedSystem.Common;
+using MassTransit;
 
 namespace NotificationService
 {
@@ -6,12 +8,20 @@ namespace NotificationService
     {
         static void Main(string[] args)
         {
-            using (var rabbitMqManager = new RabbitMqManager())
+            var bus = BusConfigurator.ConfigureBus((cfg, host) =>
             {
-                rabbitMqManager.ListenForOrderRegisteredEvent();
-                Console.WriteLine("Listening for RegisterOrderCommand..");
-                Console.ReadKey();
-            }
+                cfg.ReceiveEndpoint(host, RabbitMqConstants.NotificationServiceQueue, e =>
+                {
+                    e.Consumer<OrderRegisteredConsumer>();
+                });
+            });
+
+            bus.Start();
+
+            Console.WriteLine("Listening for Order registered events.. Press enter to exit");
+            Console.ReadLine();
+
+            bus.Stop();
         }
     }
 }

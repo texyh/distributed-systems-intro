@@ -1,4 +1,7 @@
 ﻿using System;
+using DistribuedSystem.Common;
+using DistribuedSystem.Common.Interfaces;
+using MassTransit;
 
 namespace RegistrationService
 {
@@ -6,12 +9,23 @@ namespace RegistrationService
     {
         static void Main(string[] args)
         {
-            using (var manager = new RabbitMqManager())
+            var bus = BusConfigurator.ConfigureBus((cfg, host) =>
             {
-                manager.ListenForRegisterOrderCommand();
-                Console.WriteLine("Listening for order registerd event");
-                Console.ReadKey();
-            }
+                cfg.ReceiveEndpoint(host,
+                    RabbitMqConstants.RegisterOrderServiceQueue, e =>
+                    {
+                        e.Consumer<RegisteredOrderCommandConsumer>();
+                        //e.Handler<IRegisterOrderCommand>(c => Console.Out.WriteLineAsync(c.Message.DeliverAddress));  // mini handler
+                    });
+            });
+
+            bus.Start();
+
+            Console.WriteLine("Listening for Register order commands.. " +
+                              "Press enter to exit");
+            Console.ReadLine();
+
+            bus.Stop();
         }
     }
 }

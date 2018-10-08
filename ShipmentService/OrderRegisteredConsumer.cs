@@ -5,15 +5,13 @@ using System.Threading.Tasks;
 using DistribuedSystem.Common.Interfaces;
 using MassTransit;
 
-namespace NotificationService
+namespace ShipmentService
 {
     public class OrderRegisteredConsumer : IConsumer<IOrderRegisteredEvent>
     {
         public async Task Consume(ConsumeContext<IOrderRegisteredEvent> context)
         {
-            //Send notification to user
-            await Console.Out.WriteLineAsync($"Customer notification sent: " +
-                                             $"Order id {context.Message.OrderId}");
+            await Console.Out.WriteLineAsync($"Order with id {context.Message.OrderId} recieved");
         }
     }
 }

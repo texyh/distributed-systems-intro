@@ -6,19 +6,11 @@ namespace DistribuedSystem.Common
 {
     public class RabbitMqConstants
     {
-        public const string RabbitMqUri = 
-            "amqp://guest:guest@localhost:5672/";
-        public const string JsonMimeType = 
-            "application/json";
-
-        public const string RegisterOrderExchange = 
-            "distributedsystem.registerorder.exchange";
-        public const string RegisterOrderQueue = 
-            "distributedsystem.registerorder.queue";
-
-        public const string OrderRegisteredExchange = 
-            "distributedsystem.orderregistered.exchange";
-        public const string OrderRegisteredNotificationQueue = 
-            "distributedsystem.orderregistered.notification.queue";
+        public const string RabbitMqUri = "rabbitmq://localhost/learningDistributedSystems/";
+        public const string UserName = "guest";
+        public const string Password = "guest";
+        public const string RegisterOrderServiceQueue = "registerorder.service";
+        public const string NotificationServiceQueue = "notification.service";
+        public const string ShippingServiceQueue = "shipping.service";
     }
 }

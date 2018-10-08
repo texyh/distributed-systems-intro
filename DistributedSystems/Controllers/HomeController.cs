@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using DistribuedSystem.Common;
+using DistribuedSystem.Common.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using DistributedSystems.Models;
 using DistributedSystems.Web;
@@ -24,15 +26,28 @@ namespace DistributedSystems.Controllers
             return View();
         }
 
-        public IActionResult Register(OrderViewModel model)
+        public async Task<IActionResult> Register(OrderViewModel model)
         {
-            var command = new RegisterOrderCommand(model);
+            var bus = BusConfigurator.ConfigureBus();
 
-            using (var rabbitMqManager = new RabbitMqManager())
+            var sendToUri = new Uri($"{RabbitMqConstants.RabbitMqUri}" +
+                                    $"{RabbitMqConstants.RegisterOrderServiceQueue}");
+            var endPoint = await bus.GetSendEndpoint(sendToUri);
+
+            await endPoint.Send<IRegisterOrderCommand>(new
             {
-                rabbitMqManager.SendRegisterOrderCommand(command);
-            }
-            return RedirectToAction("Thanks");
+                PickupName = model.PickupName,
+                PickupAddress = model.PickupAddress,
+                PickupCity = model.PickupCity,
+                DeliverName = model.DeliverName,
+                DeliverAddress = model.DeliverAddress,
+                DeliverCity = model.DeliverCity,
+                Weight = model.Weight,
+                Fragile = model.Fragile,
+                Oversized = model.Oversized
+            });
+
+            return View("Thanks");
         }
 
         public IActionResult Thanks()
