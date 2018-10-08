@@ -6,7 +6,12 @@ namespace NotificationService
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            using (var rabbitMqManager = new RabbitMqManager())
+            {
+                rabbitMqManager.ListenForOrderRegisteredEvent();
+                Console.WriteLine("Listening for RegisterOrderCommand..");
+                Console.ReadKey();
+            }
         }
     }
 }

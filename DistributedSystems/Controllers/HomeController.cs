@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DistributedSystems.Models;
+using DistributedSystems.Web;
+using DistributedSystems.Web.Models;
 
 namespace DistributedSystems.Controllers
 {
@@ -19,6 +21,22 @@ namespace DistributedSystems.Controllers
         {
             ViewData["Message"] = "Your application description page.";
 
+            return View();
+        }
+
+        public IActionResult Register(OrderViewModel model)
+        {
+            var command = new RegisterOrderCommand(model);
+
+            using (var rabbitMqManager = new RabbitMqManager())
+            {
+                rabbitMqManager.SendRegisterOrderCommand(command);
+            }
+            return RedirectToAction("Thanks");
+        }
+
+        public IActionResult Thanks()
+        {
             return View();
         }
 
